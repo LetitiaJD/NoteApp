@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NoteApp</string>
+    <string name="activity_todays_tasks_textview_title">Heutige Aufgaben</string>
 </resources>
