@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.075" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewLists"
+        android:id="@+id/recyclerViewStartLists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
