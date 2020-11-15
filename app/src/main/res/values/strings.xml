@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NoteApp</string>
+    <string name="activity_list_textView_title">List-Titel</string>
+    <string name="activity_list_floatingActionButton_create_new_list">activity_list_floatingActionButton_create_new_list</string>
 </resources>
