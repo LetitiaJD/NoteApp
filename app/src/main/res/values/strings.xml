@@ -3,5 +3,10 @@
     <string name="activity_task_textView_title">Aufgabenname</string>
     <string name="activity_task_imageButton_save" />
     <string name="activity_task_imageButton_delete" />
-    <string name="activity_task_checkBox_task_complete">Abgeschlossen</string>
+    <string name="activity_task_textView_task_completed">Abgeschlossen</string>
+    <string name="activity_task_textView_priority">Priorität</string>
+    <string name="activity_task_textView_task_deadline">Fälligkeitsdatum</string>
+    <string name="activity_task_textView_task_subtasks">Unteraufgaben</string>
+    <string name="activity_task_floatingActionButton_add_task">add</string>
+    <string name="activity_task_floatingActionButton_add_task">add</string>
 </resources>
