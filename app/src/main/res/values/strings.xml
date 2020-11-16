@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NoteApp</string>
+    <string name="activity_task_textView_title">Aufgabenname</string>
+    <string name="activity_task_imageButton_save" />
+    <string name="activity_task_imageButton_delete" />
+    <string name="activity_task_checkBox_task_complete">Abgeschlossen</string>
 </resources>
