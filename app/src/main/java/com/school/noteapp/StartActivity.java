@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.school.noteapp.R;
 
 public class StartActivity extends AppCompatActivity {
 
