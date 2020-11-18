@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/textViewStartTitle"
@@ -21,12 +22,13 @@
             android:layout_marginBottom="1dp"
             android:text="@string/activity_start_textView_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewStartLists"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonStartAddList"
-            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.025" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewStartLists"
@@ -39,10 +41,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewStartTitle"
+            app:layout_constraintVertical_bias="0.109" />
 
         <Button
             android:id="@+id/buttonStartTodaysTasks"
@@ -66,19 +68,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
-            android:layout_marginBottom="1dp"
             android:clickable="true"
             android:contentDescription="@string/activity_start_floatingActionButton_add_list"
             android:focusable="true"
             android:tint="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewStartLists"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35"
+            app:layout_constraintVertical_bias="0.04"
             app:srcCompat="@android:drawable/ic_input_add" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
