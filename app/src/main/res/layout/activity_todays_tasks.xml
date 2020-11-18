@@ -19,21 +19,20 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
-            android:text="@string/activity_todays_tasks_textview_title"
+            android:text="@string/activity_todays_tasks_textView_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewTodaysTasksListsWithTasks"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.025" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewTodaysTasksListsWithTasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -41,8 +40,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.175" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTodaysTasksTitle"
+            app:layout_constraintVertical_bias="0.075" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
