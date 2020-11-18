@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NoteApp</string>
+    <string name="activity_start_textView_title">Listen</string>
+    <string name="activity_start_button_todays_tasks">Heutige Aufgaben</string>
+    <string name="activity_start_floatingActionButton_add_list">Button for adding a List</string>
+
 </resources>
