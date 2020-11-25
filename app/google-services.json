@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "644753510832",
+    "firebase_url": "https://noteapp-5e321.firebaseio.com",
+    "project_id": "noteapp-5e321",
+    "storage_bucket": "noteapp-5e321.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644753510832:android:99f2aac59079bdfee24675",
+        "android_client_info": {
+          "package_name": "com.school.noteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644753510832-40psmofe7ppbca1030c3lv87omiijgjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvpj_hzRyslEXt40c_xt3JHUlH94lAQvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644753510832-40psmofe7ppbca1030c3lv87omiijgjm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
