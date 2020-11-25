@@ -1,5 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
 /build
-.idea
-.gradle
+.idea/
+.gradle/
 local.properties
