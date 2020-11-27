@@ -4,12 +4,18 @@ import java.util.ArrayList;
 
 public class List {
 
-    String id;
-    ArrayList<Task> tasks;
+    private String id;
+    private String name;
+    private String description;
+    private String colour;
+    private ArrayList<Task> taskList;
 
-    public List(String id, ArrayList<Task> tasks) {
+    public List(String id, String name, String description, String colour) {
         this.id = id;
-        this.tasks = tasks;
+        this.name = name;
+        this.description = description;
+        this.colour = colour;
+        this.taskList = new ArrayList<>();
     }
 
     public String getId() {
@@ -20,11 +26,37 @@ public class List {
         this.id = id;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public String getName() {
+        return name;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
+    public boolean addTask(Task task) {
+        this.taskList.add(task);
+        return true;
+    }
+
+    public boolean deleteTask(Task task) {
+        this.taskList.remove(task);
+        return true;
     }
 }
