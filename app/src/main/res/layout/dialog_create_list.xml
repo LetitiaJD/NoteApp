@@ -90,7 +90,7 @@
         android:layout_below="@+id/editTextListDescription"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="15dp"
         android:background="@color/dialog_create_list_button_yellow" />
 
     <Button

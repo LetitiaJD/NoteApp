@@ -3,10 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="dialog_create_list_button_red">red</color>
-    <color name="dialog_create_list_button_green">green</color>
-    <color name="dialog_create_list_button_blue">blue</color>
-    <color name="dialog_create_list_button_yellow">yellow</color>
-    <color name="dialog_create_list_button_orange">orange</color>
-    <color name="dialog_create_list_button_pink">pink</color>
+    <color name="dialog_create_list_button_red">#FF0000</color>
+    <color name="dialog_create_list_button_green">#2ECC71</color>
+    <color name="dialog_create_list_button_blue">#6495ED</color>
+    <color name="dialog_create_list_button_yellow">#FFFF00</color>
+    <color name="dialog_create_list_button_orange">#FFBF00</color>
+    <color name="dialog_create_list_button_pink">#DE3163</color>
 </resources>
