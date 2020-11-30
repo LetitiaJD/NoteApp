@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class List {
 
-    private int numberOfTasks;
-
     private String id;
     private String name;
     private String description;
@@ -18,7 +16,6 @@ public class List {
         this.description = description;
         this.colour = colour;
         this.taskList = new ArrayList<>();
-        this.numberOfTasks = 0;
     }
 
     public String getId() {
@@ -61,5 +58,13 @@ public class List {
     public boolean deleteTask(Task task) {
         this.taskList.remove(task);
         return true;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 }

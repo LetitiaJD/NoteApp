@@ -53,13 +53,13 @@ public class StartActivity extends AppCompatActivity {
         // first list for test
         String id = dataRef.push().getKey();
         List list = new List(id, "List 1", "Test for list", "red");
-        list.addTask(new Task(1, "Task 1", false, null, Priority.getHIGH(), Level.getFIRST()));
-        list.addTask(new Task(1, "Task 2", false, null, Priority.getMEDIUM(), Level.getSECOND()));
+        list.addTask(new Task("Task 1", false , Priority.getHIGH(), Level.getFIRST()));
+        list.addTask(new Task("Task 2", false, Priority.getMEDIUM(), Level.getSECOND()));
         dataRef.child(id).setValue(list);
         // second list for test
         id = dataRef.push().getKey();
-        Task task = new Task(1, "Task 1", false, null, Priority.getHIGH(), Level.getFIRST());
-        Task subTask = new Task(1, "Task 2", false, null, Priority.getMEDIUM(), Level.getSECOND());
+        Task task = new Task("Task 1", false, null, Priority.getHIGH(), Level.getFIRST());
+        Task subTask = new Task( "Task 2", false, null, Priority.getMEDIUM(), Level.getSECOND());
         task.getSubtasks().add(subTask);
         list = new List(id, "List 1", "Test for list", "blue");
         list.addTask(task);

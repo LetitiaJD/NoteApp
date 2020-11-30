@@ -2,33 +2,32 @@ package com.school.noteapp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Task {
 
-    private int id;
     private String name;
     private boolean completed;
-    private LocalDateTime deadline;
+    private Date deadline;
     private ArrayList<Task> subtasks;
     private String priorityColour;
     private int levelFontsize;
 
-    public Task(int id, String name, boolean completed, LocalDateTime deadline, String priorityColour, int levelFontsize) {
-        this.id = id;
+    public Task(String name, boolean completed, String priorityColour, int levelFontsize) {
+        this.name = name;
+        this.completed = completed;
+        this.subtasks = new ArrayList<>();
+        this.priorityColour = priorityColour;
+        this.levelFontsize = levelFontsize;
+    }
+
+    public Task(String name, boolean completed, Date deadline, String priorityColour, int levelFontsize) {
         this.name = name;
         this.completed = completed;
         this.deadline = deadline;
         this.subtasks = new ArrayList<>();
         this.priorityColour = priorityColour;
         this.levelFontsize = levelFontsize;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -47,11 +46,11 @@ public class Task {
         this.completed = completed;
     }
 
-    public LocalDateTime getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
