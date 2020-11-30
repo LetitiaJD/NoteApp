@@ -1,38 +1,32 @@
 package com.school.noteapp;
 
-public class Priority {
+public abstract class Priority {
 
-    private int id;
-    private String description;
-    private String colour;
+    private static String LOW = "green";
+    private static String MEDIUM = "orange";
+    private static String HIGH = "red";
 
-    public Priority(int id, String description, String colour) {
-        this.id = id;
-        this.description = description;
-        this.colour = colour;
+    public static String getLOW() {
+        return LOW;
     }
 
-    public int getId() {
-        return id;
+    public static void setLOW(String LOW) {
+        Priority.LOW = LOW;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static String getMEDIUM() {
+        return MEDIUM;
     }
 
-    public String getDescription() {
-        return description;
+    public static void setMEDIUM(String MEDIUM) {
+        Priority.MEDIUM = MEDIUM;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public static String getHIGH() {
+        return HIGH;
     }
 
-    public String getColour() {
-        return colour;
-    }
-
-    public void setColour(String colour) {
-        this.colour = colour;
+    public static void setHIGH(String HIGH) {
+        Priority.HIGH = HIGH;
     }
 }

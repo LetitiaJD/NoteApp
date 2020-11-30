@@ -1,28 +1,23 @@
 package com.school.noteapp;
 
-public class Level {
+public abstract class Level {
 
-    private int id;
-    private int fontSize;
+    private static int FIRST = 20;
+    private static int SECOND = 14;
 
-    public Level(int id, int fontSize) {
-        this.id = id;
-        this.fontSize = fontSize;
+    public static int getFIRST() {
+        return FIRST;
     }
 
-    public int getId() {
-        return id;
+    public static void setFIRST(int FIRST) {
+        Level.FIRST = FIRST;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static int getSECOND() {
+        return SECOND;
     }
 
-    public int getFontSize() {
-        return fontSize;
-    }
-
-    public void setFontSize(int fontSize) {
-        this.fontSize = fontSize;
+    public static void setSECOND(int SECOND) {
+        Level.SECOND = SECOND;
     }
 }

@@ -1,6 +1,7 @@
 package com.school.noteapp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Task {
 
@@ -8,18 +9,18 @@ public class Task {
     private String name;
     private boolean completed;
     private LocalDateTime deadline;
-    private Task parentTask;
-    private Priority priority;
-    private Level level;
+    private ArrayList<Task> subtasks;
+    private String priorityColour;
+    private int levelFontsize;
 
-    public Task(int id, String name, boolean completed, LocalDateTime deadline, Task parentTask, Priority priority, Level level) {
+    public Task(int id, String name, boolean completed, LocalDateTime deadline, String priorityColour, int levelFontsize) {
         this.id = id;
         this.name = name;
         this.completed = completed;
         this.deadline = deadline;
-        this.parentTask = parentTask;
-        this.priority = priority;
-        this.level = level;
+        this.subtasks = new ArrayList<>();
+        this.priorityColour = priorityColour;
+        this.levelFontsize = levelFontsize;
     }
 
     public int getId() {
@@ -54,28 +55,28 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public Task getParentTask() {
-        return parentTask;
+    public ArrayList<Task> getSubtasks() {
+        return subtasks;
     }
 
-    public void setParentTask(Task parentTask) {
-        this.parentTask = parentTask;
+    public void setSubtasks(ArrayList<Task> subtasks) {
+        this.subtasks = subtasks;
     }
 
-    public Priority getPriority() {
-        return priority;
+    public String getPriorityColour() {
+        return priorityColour;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public void setPriorityColour(String priorityColour) {
+        this.priorityColour = priorityColour;
     }
 
-    public Level getLevel() {
-        return level;
+    public int getLevelFontsize() {
+        return levelFontsize;
     }
 
-    public void setLevel(Level level) {
-        this.level = level;
+    public void setLevelFontsize(int levelFontsize) {
+        this.levelFontsize = levelFontsize;
     }
 }
 
