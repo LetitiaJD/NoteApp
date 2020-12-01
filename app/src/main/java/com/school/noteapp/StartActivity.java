@@ -1,18 +1,25 @@
 package com.school.noteapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class StartActivity extends AppCompatActivity implements CreateListDialog.CreateListDialogListener {
+public class StartActivity extends AppCompatActivity implements CreateListDialog.CreateListDialogListener, ListAdapter.OnNoteListener {
 
     // database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -24,7 +31,10 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
     RecyclerView recyclerViewStartLists;
     Button buttonStartTodaysTasks;
 
+    App app = App.getInstance();
 
+
+    private View.OnClickListener listOnClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +66,12 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
             }
         });
 
-
-
+        // Initialize contacts
+        ListAdapter listAdapter = new ListAdapter(app.getLists(), this);
+        // add adapter to recyclerview
+        recyclerViewStartLists.setAdapter(listAdapter);
+        // Set layout manager to position the items
+        recyclerViewStartLists.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -89,5 +103,13 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         dataRefList.child(id).setValue(list);
 
         return list;
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        List list = app.getLists().get(position);
+        Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra("list", list);
+        startActivity(intent);
     }
 }

@@ -13,6 +13,10 @@ public class Task {
     private String priorityColour;
     private int levelFontsize;
 
+    public Task() {
+
+    }
+
     public Task(String name, boolean completed, String priorityColour, int levelFontsize) {
         this.name = name;
         this.completed = completed;

@@ -11,6 +11,11 @@ public class List implements Serializable {
     private String colour;
     private ArrayList<Task> taskList;
 
+    public List() {
+
+    }
+
+
     public List(String id, String name, String description, String colour) {
         this.id = id;
         this.name = name;
@@ -67,5 +72,10 @@ public class List implements Serializable {
 
     public void setTaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
