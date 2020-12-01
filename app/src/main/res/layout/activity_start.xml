@@ -24,7 +24,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonStartAddList"
+            app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonCreateNewTask"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -64,13 +64,13 @@
             app:layout_constraintVertical_bias="0.95" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonStartAddList"
+            android:id="@+id/floatingActionButtonCreateNewTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:clickable="true"
-            android:contentDescription="@string/activity_start_floatingActionButton_add_list"
+            android:contentDescription="@string/activity_start_floatingActionButton_create_new_list"
             android:focusable="true"
             android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"

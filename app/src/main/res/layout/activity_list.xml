@@ -28,13 +28,13 @@
             app:layout_constraintVertical_bias="0.038" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonCreateNewList"
+            android:id="@+id/floatingActionButtonCreateNewTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:clickable="true"
-            android:contentDescription="@string/activity_list_floatingActionButton_create_new_list"
+            android:contentDescription="@string/activity_list_floatingActionButton_create_new_task"
             android:focusable="true"
             android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"

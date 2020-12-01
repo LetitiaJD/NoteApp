@@ -1,10 +1,9 @@
 package com.school.noteapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class List {
-
-    private int numberOfTasks;
+public class List implements Serializable {
 
     private String id;
     private String name;
@@ -18,7 +17,6 @@ public class List {
         this.description = description;
         this.colour = colour;
         this.taskList = new ArrayList<>();
-        this.numberOfTasks = 0;
     }
 
     public String getId() {
@@ -61,5 +59,13 @@ public class List {
     public boolean deleteTask(Task task) {
         this.taskList.remove(task);
         return true;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 }
