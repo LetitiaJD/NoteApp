@@ -1,8 +1,9 @@
 package com.school.noteapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class List {
+public class List implements Serializable {
 
     private String id;
     private String name;

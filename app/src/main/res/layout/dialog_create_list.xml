@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -12,8 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextListName"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:hint="@string/dialog_create_list_editText_list_description" />
@@ -26,6 +24,13 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:hint="@string/dialog_create_list_editText_list_name" />
+
+    <EditText
+        android:id="@+id/editTextListColour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/imageButtonSave"
@@ -53,64 +58,56 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
-    <Button
-        android:id="@+id/buttonRed"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <LinearLayout
+        android:id="@+id/linearLayoutColours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/editTextListDescription"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_toStartOf="@+id/buttonGreen"
-        android:background="@color/dialog_create_list_button_red" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/buttonGreen"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/editTextListDescription"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_toStartOf="@+id/buttonBlue"
-        android:background="@color/dialog_create_list_button_green" />
+        <Button
+            android:id="@+id/buttonYellow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/dialog_create_list_button_yellow" />
 
-    <Button
-        android:id="@+id/buttonBlue"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/editTextListDescription"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_toStartOf="@+id/buttonPink"
-        android:background="@color/dialog_create_list_button_blue" />
+        <Button
+            android:id="@+id/buttonRed"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/dialog_create_list_button_red" />
 
-    <Button
-        android:id="@+id/buttonYellow"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/editTextListDescription"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/dialog_create_list_button_yellow" />
+        <Button
+            android:id="@+id/buttonBlue"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/dialog_create_list_button_blue" />
 
-    <Button
-        android:id="@+id/buttonOrange"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/editTextListDescription"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_toStartOf="@+id/buttonYellow"
-        android:background="@color/dialog_create_list_button_orange" />
+        <Button
+            android:id="@+id/buttonPink"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/dialog_create_list_button_pink" />
 
-    <Button
-        android:id="@+id/buttonPink"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/editTextListDescription"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_toStartOf="@+id/buttonOrange"
-        android:background="@color/dialog_create_list_button_pink" />
+        <Button
+            android:id="@+id/buttonOrange"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/dialog_create_list_button_orange" />
+
+        <Button
+            android:id="@+id/buttonGreen"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/dialog_create_list_button_green" />
+    </LinearLayout>
 
 </RelativeLayout>

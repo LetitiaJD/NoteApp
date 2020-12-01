@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NoteApp</string>
     <string name="activity_list_textView_title">List-Titel</string>
-    <string name="activity_list_floatingActionButton_create_new_list">activity_list_floatingActionButton_create_new_list</string>
+    <string name="activity_list_floatingActionButton_create_new_task">activity_list_floatingActionButton_create_new_list</string>
     <string name="activity_task_textView_title">Aufgabenname</string>
     <string name="activity_task_imageButton_save" />
     <string name="activity_task_imageButton_delete" />
@@ -13,7 +13,8 @@
     <string name="activity_todays_tasks_textView_title">Heutige Aufgaben</string>
     <string name="activity_start_textView_title">Listen</string>
     <string name="activity_start_button_todays_tasks">Heutige Aufgaben</string>
-    <string name="activity_start_floatingActionButton_add_list">Button for adding a List</string>
+    <string name="activity_start_floatingActionButton_create_new_list">Button for adding a List</string>
+    <string name="dialog_create_list_title">Liste erstellen</string>
     <string name="dialog_create_list_editText_list_name">Name</string>
     <string name="dialog_create_list_editText_list_description">Beschreibung</string>
 </resources>
