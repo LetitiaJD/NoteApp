@@ -76,7 +76,7 @@ public class ListAdapter extends
             super(itemView);
 
             textViewItemListName = (TextView) itemView.findViewById(R.id.textViewItemListName);
-this.onNoteListener = onNoteListener;
+            this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
         }
 

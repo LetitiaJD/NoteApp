@@ -64,7 +64,7 @@ public class TodaysTasksAdapter extends
 
     @Override
     public int getItemCount() {
-        return this.listWithTodaysTasks.size();
+        return this.listsWithTodaysTasks.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -90,7 +90,7 @@ public class TodaysTasksAdapter extends
 
         @Override
         public void onClick(View v) {
-			nNoteListener.onNoteClick(getAdapterPosition());
+			onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
 
