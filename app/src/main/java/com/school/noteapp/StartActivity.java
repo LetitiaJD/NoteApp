@@ -43,7 +43,7 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
 
         // initialize UI
         textViewStartTitle = findViewById(R.id.textViewStartTitle);
-        floatingActionButtonCreateNewList = findViewById(R.id.floatingActionButtonCreateNewTask);
+        floatingActionButtonCreateNewList = findViewById(R.id.floatingActionButtonCreateNewList);
         recyclerViewStartLists = findViewById(R.id.recyclerViewStartLists);
         buttonStartTodaysTasks = findViewById(R.id.buttonStartTodaysTasks);
 
@@ -52,9 +52,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
 
         // add testdata to db
        // addTestdata();
-
-        // get elements of UI
-        floatingActionButtonCreateNewList = findViewById(R.id.floatingActionButtonCreateNewTask);
 
         // implement button for adding list
         floatingActionButtonCreateNewList.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +69,17 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         recyclerViewStartLists.setAdapter(listAdapter);
         // Set layout manager to position the items
         recyclerViewStartLists.setLayoutManager(new LinearLayoutManager(this));
+		
+		// implement button for open todays tasks
+		buttonStartTodaysTasks.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // open today's tasks
+                    Intent intent = new Intent(StartActivity.this, TodaysTasksActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
     }
 

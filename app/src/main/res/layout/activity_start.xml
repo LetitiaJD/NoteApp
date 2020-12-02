@@ -64,7 +64,7 @@
             app:layout_constraintVertical_bias="0.95" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonCreateNewTask"
+            android:id="@+id/floatingActionButtonCreateNewList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
