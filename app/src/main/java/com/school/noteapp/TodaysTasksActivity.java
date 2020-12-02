@@ -12,6 +12,8 @@ public class TodaysTasksActivity extends AppCompatActivity implements TodaysTask
     // UI
     TextView textViewTodaysTasksTitle;
     RecyclerView recyclerViewTodaysTasksListsWithTasks;
+	
+    java.util.List<List> listsWithTodaysTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class TodaysTasksActivity extends AppCompatActivity implements TodaysTask
 		
 		
 	// get Lists with tasks for today
-	java.util.List<List> listsWithTodaysTasks = app.getTodaysTasks();
+	listsWithTodaysTasks = app.getTodaysTasks();
 
 	// Initialize view for list of todays tasks
         TodaysTasksAdapter todaysTasksAdapter = new TodaysTasksAdapter(listsWithTodaysTasks, this);
@@ -32,5 +34,14 @@ public class TodaysTasksActivity extends AppCompatActivity implements TodaysTask
         recyclerViewTodaysTasksListsWithTasks.setAdapter(todaysTasksAdapter);
         // Set layout manager to position the items
         recyclerViewTodaysTasksListsWithTasks.setLayoutManager(new LinearLayoutManager(this));
+    }
+	
+	
+    @Override
+    public void onNoteClick(int position) {
+        List listWithTodaysTasks = listsWithTodaysTasks.get(position);
+        // make recyclerview with tasks visible
+	    
+	    
     }
 }
