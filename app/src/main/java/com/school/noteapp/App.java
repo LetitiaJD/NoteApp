@@ -76,4 +76,30 @@ public class App {
         this.lists.remove(list);
         return true;
     }
+	
+	public ArrayList<List> getTodaysTasks() {
+		ArrayList<List> listsWithTodaysTasks = new ArrayList<>();
+		for (List list : this.lists) {
+			// check if tasks have today as deadline
+			List listWithTodaysTasks = list.clone();
+			ArrayList<Task> tasksForToday = new ArrayList<>();
+			for (Task task : list.getTasks()) {
+				if (task.getDeadline().equals(new Date())) {
+					tasksForToday.add(task);
+					// whats about the subtasks? Do they have the same deadline like the parent task? Maybe the parent task can have 
+					// automatically the lowest deadline of the subtasks and then we check which subtasks have this deadline and 
+					// add them to subtasks
+					
+					
+					
+				}
+			}
+			// add tasks that are for today to list
+			listWithTodaysTasks.setTasks(tasksForToday);
+			// add list with tasks for today to listsWithTodaysTasks
+			listsWithTodaysTasks.add(listWithTodaysTasks);
+		}
+		return listsWithTodaysTasks;
+		
+	}
 }
