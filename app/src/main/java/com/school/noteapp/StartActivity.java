@@ -83,6 +83,15 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
                 }
             });
 
+        buttonStartTodaysTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, TodaysTasksActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     // for testing
