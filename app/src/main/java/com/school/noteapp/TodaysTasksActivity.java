@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class TodaysTasksActivity extends AppCompatActivity {
+public class TodaysTasksActivity extends AppCompatActivity implements TodaysTasksAdapter.OnNoteListener{
 
 
     // UI
-    TextView textViewTodaysTaskTitle;
+    TextView textViewTodaysTasksTitle;
     RecyclerView recyclerViewTodaysTasksListsWithTasks;
 
     @Override
@@ -21,5 +21,16 @@ public class TodaysTasksActivity extends AppCompatActivity {
         // UI
         textViewTodaysTaskTitle = findViewById(R.id.textViewTodaysTasksTitle);
         recyclerViewTodaysTasksListsWithTasks = findViewById(R.id.recyclerViewTodaysTasksListsWithTasks);
+		
+		
+		// get Lists with tasks for today
+		java.util.List<List> listsWithTodaysTasks = app.getTodaysTasks();
+		
+		// Initialize view for list of todays tasks
+        TodaysTasksAdapter todaysTasksAdapter = new TodaysTasksAdapter(listsWithTodaysTasks, this);
+        // add adapter to recyclerview
+        recyclerViewTodaysTasksListsWithTasks.setAdapter(todaysTasksAdapter);
+        // Set layout manager to position the items
+        recyclerViewTodaysTasksListsWithTasks.setLayoutManager(new LinearLayoutManager(this));
     }
 }
