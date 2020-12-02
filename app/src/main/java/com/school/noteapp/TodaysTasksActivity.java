@@ -23,10 +23,10 @@ public class TodaysTasksActivity extends AppCompatActivity implements TodaysTask
         recyclerViewTodaysTasksListsWithTasks = findViewById(R.id.recyclerViewTodaysTasksListsWithTasks);
 		
 		
-		// get Lists with tasks for today
-		java.util.List<List> listsWithTodaysTasks = app.getTodaysTasks();
-		
-		// Initialize view for list of todays tasks
+	// get Lists with tasks for today
+	java.util.List<List> listsWithTodaysTasks = app.getTodaysTasks();
+
+	// Initialize view for list of todays tasks
         TodaysTasksAdapter todaysTasksAdapter = new TodaysTasksAdapter(listsWithTodaysTasks, this);
         // add adapter to recyclerview
         recyclerViewTodaysTasksListsWithTasks.setAdapter(todaysTasksAdapter);
