@@ -75,6 +75,15 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         // Set layout manager to position the items
         recyclerViewStartLists.setLayoutManager(new LinearLayoutManager(this));
 
+        buttonStartTodaysTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, TodaysTasksActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     // for testing
