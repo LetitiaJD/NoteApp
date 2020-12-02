@@ -66,7 +66,7 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
             }
         });
 
-        // Initialize contacts
+        // Initialize view for lists
         ListAdapter listAdapter = new ListAdapter(app.getLists(), this);
         // add adapter to recyclerview
         recyclerViewStartLists.setAdapter(listAdapter);
