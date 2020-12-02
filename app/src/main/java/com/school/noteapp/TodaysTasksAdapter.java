@@ -15,18 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends
-            RecyclerView.Adapter<ListAdapter.ViewHolder> {
+public class TodaysTasksAdapter extends
+            RecyclerView.Adapter<TodaysTasksAdapter.ViewHolder> {
 
-    java.util.List<List> lists = new ArrayList<>();
+    java.util.List<List> listsWithTodaysTasks;
 
     OnNoteListener onNoteListener;
 
-    RecyclerView recyclerViewStartLists;
+    RecyclerView recyclerViewTodaysTasksListsWithTasks;
 
 
-    public ListAdapter(java.util.List<List> lists, OnNoteListener onNoteListener) {
-        this.lists = lists;
+    public TodaysTasksAdapter(java.util.List<List> listsWithTodaysTasks, OnNoteListener onNoteListener) {
+        this.listsWithTodaysTasks = listsWithTodaysTasks;
         this.onNoteListener = onNoteListener;
     }
 
@@ -39,7 +39,7 @@ public class ListAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View listView = inflater.inflate(R.layout.item_list, parent, false);
+        View listView = inflater.inflate(R.layout.item_todays_tasks, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(listView, onNoteListener);
@@ -48,24 +48,30 @@ public class ListAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-// Get the data model based on position
-        List list = lists.get(position);
+		// Get the data model based on position
+        List listWithTodaysTasks = listsWithTodaysTasks.get(position);
 
         // Set item views based on your views and data model
-        TextView textView = holder.textViewItemListName;
-        textView.setText(list.toString());
+        TextView textView = holder.textViewItemTodaysTasksName;
+		RecyclerView recyclerview = holder.recyclerViewItemTodaysTasksTasks;
+		
+        textView.setText(listWithTodaysTasks.toString());
+		
+		// was muss ich hier tun? Erst im zweiten Schritt
+		//recyclerViewItemTodaysTasksTasks.setAdapter(TodaysTasksListAdapter);
 
     }
 
     @Override
     public int getItemCount() {
-        return this.lists.size();
+        return this.listsWithTodaysTasks.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView textViewItemListName;
+        public TextView textViewItemTodaysTasksName;
+		public RecyclerView recyclerViewItemTodaysTasksTasks;
         OnNoteListener onNoteListener;
 
         // We also create a constructor that accepts the entire item row
@@ -75,14 +81,16 @@ public class ListAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            textViewItemListName = (TextView) itemView.findViewById(R.id.textViewItemListName);
-            this.onNoteListener = onNoteListener;
+            textViewItemTodaysTasksName = (TextView) itemView.findViewById(R.id.textViewItemTodaysTasksName);
+			recyclerViewItemTodaysTasksTasks = (RecyclerView) itemView.findViewById(R.id.recyclerViewItemTodaysTasksTasks);
+
+			this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-onNoteListener.onNoteClick(getAdapterPosition());
+			onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
 

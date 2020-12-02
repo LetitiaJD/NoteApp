@@ -1,6 +1,8 @@
 package com.school.noteapp;
 
-public abstract class Priority {
+import java.io.Serializable;
+
+public abstract class Priority implements Serializable {
 
     private static String LOW = "green";
     private static String MEDIUM = "orange";

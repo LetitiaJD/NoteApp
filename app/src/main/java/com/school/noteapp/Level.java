@@ -1,6 +1,8 @@
 package com.school.noteapp;
 
-public abstract class Level {
+import java.io.Serializable;
+
+public abstract class Level implements Serializable {
 
     private static int FIRST = 20;
     private static int SECOND = 14;

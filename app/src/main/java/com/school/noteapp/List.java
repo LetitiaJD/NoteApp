@@ -1,9 +1,12 @@
 package com.school.noteapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class List implements Serializable {
+public class List implements Serializable, Cloneable {
 
     private String id;
     private String name;
@@ -77,5 +80,10 @@ public class List implements Serializable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
