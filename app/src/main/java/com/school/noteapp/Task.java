@@ -1,6 +1,5 @@
 package com.school.noteapp;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +8,7 @@ public class Task {
     private String name;
     private boolean completed;
     private Date deadline;
-    private ArrayList<Task> subtasks;
+    private ArrayList<Task> subtaskList;
     private String priorityColour;
     private int levelFontsize;
 
@@ -20,7 +19,7 @@ public class Task {
     public Task(String name, boolean completed, String priorityColour, int levelFontsize) {
         this.name = name;
         this.completed = completed;
-        this.subtasks = new ArrayList<>();
+        this.subtaskList = new ArrayList<>();
         this.priorityColour = priorityColour;
         this.levelFontsize = levelFontsize;
     }
@@ -29,7 +28,7 @@ public class Task {
         this.name = name;
         this.completed = completed;
         this.deadline = deadline;
-        this.subtasks = new ArrayList<>();
+        this.subtaskList = new ArrayList<>();
         this.priorityColour = priorityColour;
         this.levelFontsize = levelFontsize;
     }
@@ -58,12 +57,12 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public ArrayList<Task> getSubtasks() {
-        return subtasks;
+    public ArrayList<Task> getSubtaskList() {
+        return subtaskList;
     }
 
-    public void setSubtasks(ArrayList<Task> subtasks) {
-        this.subtasks = subtasks;
+    public void setSubtaskList(ArrayList<Task> subtaskList) {
+        this.subtaskList = subtaskList;
     }
 
     public String getPriorityColour() {
@@ -80,6 +79,21 @@ public class Task {
 
     public void setLevelFontsize(int levelFontsize) {
         this.levelFontsize = levelFontsize;
+    }
+
+    public boolean addSubtask(Task subtask) {
+        this.subtaskList.add(subtask);
+        return true;
+    }
+
+    public boolean deleteSubtask(Task subtask) {
+        this.subtaskList.remove(subtask);
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
 
