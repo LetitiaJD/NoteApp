@@ -1,9 +1,11 @@
 package com.school.noteapp;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Task {
+public class Task implements Serializable {
 
     private String name;
     private boolean completed;

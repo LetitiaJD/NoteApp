@@ -1,5 +1,6 @@
 package com.school.noteapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Date;
 
 public class StartActivity extends AppCompatActivity implements CreateListDialog.CreateListDialogListener, ListAdapter.OnNoteListener {
 
@@ -46,7 +49,7 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         dataRefList = database.getReference("list");
 
         // add testdata to db
-       // addTestdata();
+        addTestdata();
 
         // implement button for adding list
         floatingActionButtonCreateNewList.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +79,15 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
                 }
             });
 
+        buttonStartTodaysTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, TodaysTasksActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     // for testing
@@ -89,7 +101,7 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         dataRefList.child(id).setValue(list);
         // second list for test
         id = dataRefList.push().getKey();
-        Task task = new Task("Task 1", false, null, Priority.getHIGH(), Level.getFIRST());
+        Task task = new Task("Task 1", false, new Date(), Priority.getHIGH(), Level.getFIRST());
         Task subTask = new Task( "Task 2", false, null, Priority.getMEDIUM(), Level.getSECOND());
         task.getSubtaskList().add(subTask);
         list = new List(id, "List 1", "Test for list", "blue");
