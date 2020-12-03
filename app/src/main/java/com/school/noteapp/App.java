@@ -105,10 +105,12 @@ public class App {
 				}
 			}
 			}
-			// add tasks that are for today to list
-			listWithTodaysTasks.setTaskList(tasksForToday);
-			// add list with tasks for today to listsWithTodaysTasks
-			listsWithTodaysTasks.add(listWithTodaysTasks);
+			if (tasksForToday.size() > 0) {
+                // add tasks that are for today to list
+                listWithTodaysTasks.setTaskList(tasksForToday);
+                // add list with tasks for today to listsWithTodaysTasks
+                listsWithTodaysTasks.add(listWithTodaysTasks);
+            }
 		}
 		return listsWithTodaysTasks;
 		

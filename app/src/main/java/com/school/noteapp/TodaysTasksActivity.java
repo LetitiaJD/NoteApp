@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -50,8 +51,10 @@ public class TodaysTasksActivity extends AppCompatActivity implements TodaysTask
     @Override
     public void onNoteClick(int position) {
         List listWithTodaysTasks = listsWithTodaysTasks.get(position);
-        // make recyclerview with tasks visible
-	    
+        // open listActivity
+        Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra("list", listWithTodaysTasks);
+        startActivity(intent);
 	    
     }
 }
