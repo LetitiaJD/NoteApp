@@ -35,9 +35,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
 
     App app = App.getInstance();
 
-
-    private View.OnClickListener listOnClickListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
