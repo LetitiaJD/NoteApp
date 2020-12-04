@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,12 +54,20 @@ public class TodaysTasksAdapter extends
 
         // Set item views based on your views and data model
         TextView textView = holder.textViewItemTodaysTasksName;
-		RecyclerView recyclerview = holder.recyclerViewItemTodaysTasksTasks;
+		ListView listView = holder.listViewItemTaskItemTodaysTasksTasks;
+
+		String list = listWithTodaysTasks.toString();
+		for (int i = 0; i <listWithTodaysTasks.getTaskList().size(); i++) {
+		    list += "\n";
+		    list += (i+1);
+		    list += ". ";
+		    list += listWithTodaysTasks.getTaskList().get(i).getName();
+        }
+        textView.setText(list);
 		
-        textView.setText(listWithTodaysTasks.toString());
-		
-		// was muss ich hier tun? Erst im zweiten Schritt
-		//recyclerViewItemTodaysTasksTasks.setAdapter(TodaysTasksListAdapter);
+		// was muss ich hier tun? Erst im zweiten Schritt?
+
+
 
     }
 
@@ -71,7 +80,7 @@ public class TodaysTasksAdapter extends
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView textViewItemTodaysTasksName;
-		public RecyclerView recyclerViewItemTodaysTasksTasks;
+        public ListView listViewItemTaskItemTodaysTasksTasks;
         OnNoteListener onNoteListener;
 
         // We also create a constructor that accepts the entire item row
@@ -82,7 +91,7 @@ public class TodaysTasksAdapter extends
             super(itemView);
 
             textViewItemTodaysTasksName = (TextView) itemView.findViewById(R.id.textViewItemTodaysTasksName);
-			recyclerViewItemTodaysTasksTasks = (RecyclerView) itemView.findViewById(R.id.recyclerViewItemTodaysTasksTasks);
+            listViewItemTaskItemTodaysTasksTasks = (ListView) itemView.findViewById(R.id.listViewItemTaskItemTodaysTasksTasks);
 
 			this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
