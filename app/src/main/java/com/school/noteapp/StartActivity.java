@@ -7,13 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -87,8 +83,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
                 startActivity(intent);
             }
         });
-
-
     }
 
     // for testing
@@ -104,11 +98,10 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         id = dataRefList.push().getKey();
         Task task = new Task("Task 1", false, new Date(), Priority.getHIGH(), Level.getFIRST());
         Task subTask = new Task( "Task 2", false, null, Priority.getMEDIUM(), Level.getSECOND());
-        task.getSubtasks().add(subTask);
-        list = new List(id, "List 2", "Test for list", "blue");
+        task.getSubtaskList().add(subTask);
+        list = new List(id, "List 1", "Test for list", "blue");
         list.addTask(task);
         dataRefList.child(id).setValue(list);
-
     }
 
     @Override
