@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.427" />
+        app:layout_constraintVertical_bias="0.427"/>
 
     <CheckBox
         android:id="@+id/checkBoxCompleted"
@@ -33,20 +33,21 @@
         app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSubtaskName"
-        app:layout_constraintBottom_toBottomOf="textViewPriority"/>
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerPriority"/>
 
-    <TextView
-        android:id="@+id/textViewPriority"
+    <Spinner
+        android:id="@+id/spinnerPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_task_textView_priority"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxCompleted"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"/>
 
     <ImageButton
         android:id="@+id/imageButtonSave"
@@ -59,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:srcCompat="@android:drawable/ic_menu_save"/>
 
     <ImageButton
         android:id="@+id/imageButtonDelete"
@@ -71,6 +72,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:srcCompat="@android:drawable/ic_menu_delete"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

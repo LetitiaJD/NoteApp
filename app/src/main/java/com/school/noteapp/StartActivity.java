@@ -31,7 +31,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
 
     App app = App.getInstance();
 
-
     private View.OnClickListener listOnClickListener;
 
     @Override
@@ -86,8 +85,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
                 startActivity(intent);
             }
         });
-
-
     }
 
     // for testing
@@ -107,7 +104,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         list = new List(id, "List 1", "Test for list", "blue");
         list.addTask(task);
         dataRefList.child(id).setValue(list);
-
     }
 
     @Override

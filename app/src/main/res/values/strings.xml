@@ -20,4 +20,9 @@
     <string name="dialog_create_subtask_editText_task_name">Name</string>
     <string name="dialog_create_subtask_title">Unteraufgabe erstellen</string>
     <string name="activity_task_checkBox_task_completed">Abgeschlossen</string>
+    <string-array name="priorityArray">
+        <item>LOW</item>
+        <item>MEDIUM</item>
+        <item>HIGH</item>
+    </string-array>
 </resources>
