@@ -81,6 +81,15 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
 
         // Implement buttons
+        imageButtonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(TaskActivity.this, "NOT NULL Task has been saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(TaskActivity.this, editTextTaskTitle.getText().toString(), Toast.LENGTH_SHORT).show();
+                task.setName(editTextTaskTitle.getText().toString());
+            }
+        });
+
 
         // save new Task
         if (selectedTask == null) {
@@ -124,6 +133,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     startActivity(intent);
                 }
             });
+            Toast.makeText(TaskActivity.this, "NULL Task has been saved", Toast.LENGTH_LONG);
         } else {
 
             editTextTaskTitle.setText(task.getName());
@@ -143,7 +153,12 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     startActivity(intent);
                 }
             });
+
+
+
         }
+
+
 
         floatingActionButtonAddSubtask.setOnClickListener(new View.OnClickListener() {
             @Override
