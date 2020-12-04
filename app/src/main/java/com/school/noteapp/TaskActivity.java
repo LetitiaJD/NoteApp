@@ -124,7 +124,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         floatingActionButtonAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateSubtaskDialog dialog = new CreateSubtaskDialog(task);
+                CreateSubtaskDialog dialog = new CreateSubtaskDialog(list, task);
                 dialog.show(getSupportFragmentManager(), "createSubTask");
             }
         });
