@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
 
-public class CreateSubtaskDialog extends AppCompatDialogFragment implements AdapterView.OnItemSelectedListener {
+public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements AdapterView.OnItemSelectedListener*/ {
 
     CreateSubtaskDialogListener createSubtaskDialogListener;
 
@@ -34,9 +34,11 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
     CheckBox checkBoxCompleted;
     Spinner spinnerPriority;
 
+    List parentList;
     Task parentTask;
 
-    public CreateSubtaskDialog(Task task) {
+    public CreateSubtaskDialog(List parentList, Task parentTask) {
+        this.parentList = parentList;
         this.parentTask = parentTask;
     }
 
@@ -58,7 +60,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
         checkBoxCompleted = (CheckBox)view.findViewById(R.id.checkBoxCompleted);
         spinnerPriority = view.findViewById(R.id.spinnerPriority);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.priorityArray, android.R.layout.simple_spinner_item);
+        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.priorityArray, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -74,7 +76,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
             public void onNothingSelected(AdapterView<?> parent) {
                 //
             }
-        });
+        });*/
 
         // implement buttons
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
@@ -87,14 +89,14 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
                 int levelFontsize = Level.getSECOND();
                 //String priorityColour = spinnerPriority.setOnItemSelectedListener(this);
 
-                Task subTask = CreateSubtaskDialogListener.saveSubtask(name, completed, levelFontsize, priorityColour);
+                Task subTask = createSubtaskDialogListener.saveSubtask(name, completed, levelFontsize, priorityColour);
                 parentTask.addSubtask(subTask);
                 Intent intent = new Intent(getActivity(), TaskActivity.class);
-                intent.putExtra("list", list);
+                intent.putExtra("list", parentList);
+                intent.putExtra("task", parentTask);
                 startActivity(intent);
             }
         });
-
         imageButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +107,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
 
         return builder.create();
     }
-
+/*
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -115,7 +117,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
+*/
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -128,6 +130,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment implements Adap
     }
 
     public interface CreateSubtaskDialogListener {
-        Task saveSubtask(String name, boolean completed, String priorityColour);
+        Task saveSubtask(String name, boolean completed, int levelFontsize, String priorityColour);
     }
 }

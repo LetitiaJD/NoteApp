@@ -23,7 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class TaskActivity extends AppCompatActivity implements CreateSubtaskDialog.CreateSubtaskDialogListener, AdapterView.OnItemSelectedListener {
 
     ImageButton imageButtonSave;
     ImageButton imageButtonDelete;
@@ -141,18 +141,16 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public Task saveSubTask(String name, boolean completed, int levelFontsize, String priorityColour) {
-
-        Task subTask = new Task(name, completed, priorityColour, levelFontsize);
+    public Task saveSubtask(String name, boolean completed, int levelFontsize, String priorityColour) {
+        Task subtask = new Task(name, completed, priorityColour, levelFontsize);
 
         selectedList.deleteTask(selectedTask);
 
-        selectedTask.addSubtask(subTask);
-
+        selectedTask.addSubtask(subtask);
         selectedList.addTask(selectedTask);
 
         dataRefList.child(selectedList.getId()).setValue(selectedList);
 
-        return subTask;
+        return subtask;
     }
 }
