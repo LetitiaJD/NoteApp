@@ -2,12 +2,11 @@
     <string name="app_name">NoteApp</string>
     <string name="activity_list_textView_title">List-Titel</string>
     <string name="activity_list_floatingActionButton_create_new_task">activity_list_floatingActionButton_create_new_list</string>
-    <string name="activity_task_textView_title">Aufgabenname</string>
+    <string name="activity_task_editText_task_title_hint">Aufgabenname</string>
     <string name="activity_task_imageButton_save" />
     <string name="activity_task_imageButton_delete" />
     <string name="activity_task_textView_task_completed">Abgeschlossen</string>
     <string name="activity_task_textView_priority">Priorität</string>
-    <string name="activity_task_textView_task_deadline">Fälligkeitsdatum</string>
     <string name="activity_task_textView_task_subtasks">Unteraufgaben</string>
     <string name="activity_task_floatingActionButton_add_task">add</string>
     <string name="activity_todays_tasks_textView_title">Heutige Aufgaben</string>
@@ -20,6 +19,7 @@
     <string name="dialog_create_subtask_editText_task_name">Name</string>
     <string name="dialog_create_subtask_title">Unteraufgabe erstellen</string>
     <string name="activity_task_checkBox_task_completed">Abgeschlossen</string>
+    <string name="activity_task_editText_deadline_hint">Fälligkeitsdatum (dd.mm.yyyy)</string>
     <string-array name="priorityArray">
         <item>LOW</item>
         <item>MEDIUM</item>

@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textViewTaskTitle"
+        <EditText
+            android:id="@+id/editTextTaskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
-            android:text="@string/activity_task_textView_title"
+            android:hint="@string/activity_task_editText_task_title_hint"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButtonSave"
@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.025"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTaskTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTaskTitle" />
 
         <Spinner
             android:id="@+id/spinnerPriority"
@@ -80,13 +80,13 @@
             app:layout_constraintTop_toBottomOf="@+id/checkBoxCompleted"
             app:layout_constraintVertical_bias="0.018" />
 
-        <TextView
-            android:id="@+id/textViewDeadline"
+        <EditText
+            android:id="@+id/editTextDeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/activity_task_textView_task_deadline"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="@string/activity_task_editText_deadline_hint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.025"
@@ -102,14 +102,14 @@
             android:text="@string/activity_task_textView_task_subtasks"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonAddTask"
+            app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonAddSubtask"
             app:layout_constraintHorizontal_bias="0.036"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDeadline"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDeadline"
             app:layout_constraintVertical_bias="0.071" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonAddTask"
+            android:id="@+id/floatingActionButtonAddSubtask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
