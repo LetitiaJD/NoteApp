@@ -120,12 +120,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
             }
         });
 
-/*        // Create array adapter, which fills the spinner with the array of items
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.priorityArray, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPriority.setAdapter(adapter);
-        spinnerPriority.setOnItemSelectedListener(this);*/
-
         // Implement buttons
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +129,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                 task.setName(editTextTaskTitle.getText().toString());
             }
         });
-
 
         // save new Task
         if (selectedTask == null) {
@@ -239,15 +232,4 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
         return subtask;
     }
-
-/*    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }*/
 }
