@@ -20,9 +20,4 @@
     <string name="dialog_create_subtask_title">Unteraufgabe erstellen</string>
     <string name="activity_task_checkBox_task_completed">Abgeschlossen</string>
     <string name="activity_task_editText_deadline_hint">Fälligkeitsdatum (dd.mm.yyyy)</string>
-    <string-array name="priorityArray">
-        <item>LOW</item>
-        <item>MEDIUM</item>
-        <item>HIGH</item>
-    </string-array>
 </resources>
