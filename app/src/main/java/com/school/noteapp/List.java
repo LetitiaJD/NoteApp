@@ -18,7 +18,6 @@ public class List implements Serializable, Cloneable {
 
     }
 
-
     public List(String id, String name, String description, String colour) {
         this.id = id;
         this.name = name;

@@ -18,7 +18,6 @@ public class App {
     private static App instance;
 
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
-
     private static ArrayList<List> lists;
 
     private App () {}
@@ -63,6 +62,10 @@ public class App {
 
     public ArrayList<List> getLists() {
         return lists;
+    }
+
+    public ArrayList<Task> getTasks(List list) {
+        return list.getTaskList();
     }
 
     public void setLists(ArrayList<List> lists) {
