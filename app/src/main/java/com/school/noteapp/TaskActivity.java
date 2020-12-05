@@ -172,7 +172,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     startActivity(intent);
                 }
             });
-            Toast.makeText(TaskActivity.this, "NULL Task has been saved", Toast.LENGTH_LONG);
+            Toast.makeText(TaskActivity.this, "NULL Task has been saved", Toast.LENGTH_LONG).show();
         } else {
 
             editTextTaskTitle.setText(task.getName());
@@ -198,7 +198,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
             @Override
             public void onClick(View v) {
                 if (selectedTask == null) {
-                    Toast.makeText(TaskActivity.this, "Du musst die Aufgabe zuerst speichern, bevor du Unteraufgaben speichern kannst!", Toast.LENGTH_LONG);
+                    Toast.makeText(TaskActivity.this, "Du musst die Aufgabe zuerst speichern, bevor du Unteraufgaben speichern kannst!", Toast.LENGTH_LONG).show();
                 } else {
                     CreateSubtaskDialog dialog = new CreateSubtaskDialog(list, task);
                     dialog.show(getSupportFragmentManager(), "createSubTask");
@@ -220,8 +220,8 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
     }
 
     @Override
-    public Task saveSubtask(String name, boolean completed, int levelFontsize, String priorityColour) {
-        Task subtask = new Task(name, completed, priorityColour, levelFontsize);
+    public Task saveSubtask(String name, boolean completed, int levelFontsize, String priority) {
+        Task subtask = new Task(name, completed, priority, levelFontsize);
 
         selectedList.deleteTask(selectedTask);
 

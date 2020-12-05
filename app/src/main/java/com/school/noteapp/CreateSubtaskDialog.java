@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,12 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements AdapterView.OnItemSelectedListener*/ {
 
@@ -58,7 +62,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
         imageButtonDelete = view.findViewById(R.id.imageButtonDelete);
         editTextSubtaskName = view.findViewById(R.id.editTextSubtaskName);
         checkBoxCompleted = (CheckBox)view.findViewById(R.id.checkBoxCompleted);
-        spinnerPriority = view.findViewById(R.id.spinnerPriority);
 
         /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.priorityArray, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
@@ -78,6 +81,59 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
             }
         });*/
 
+        spinnerPriority = (Spinner) view.findViewById(R.id.spinnerPriority);
+
+        String[] priorities = new String[]{
+                "Priorität wählen",
+                Priority.getLOW(),
+                Priority.getMEDIUM(),
+                Priority.getHIGH()
+        };
+
+        final ArrayList<String> priorityList = new ArrayList<>(Arrays.asList(priorities));
+
+        // Initialising the ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_priority, priorityList) {
+            @Override
+            public boolean isEnabled(int position) {
+                // Disable first item in the spinner, as it's only a hint
+                return position != 0;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+
+                if (position == 0) {
+                    textView.setTextColor(Color.parseColor("#999999"));
+                } else {
+                    textView.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item_priority);
+        spinnerPriority.setAdapter(spinnerArrayAdapter);
+        spinnerArrayAdapter.notifyDataSetChanged();
+
+        spinnerPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if (position > 0) {
+                    Toast.makeText(getContext(), "Selected: " + selectedItemText, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         // implement buttons
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
 
@@ -85,39 +141,35 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
             public void onClick(View v) {
                 String name = editTextSubtaskName.getText().toString().trim();
                 boolean completed = checkBoxCompleted.isChecked();
-                String priorityColour = Priority.getLOW();
                 int levelFontsize = Level.getSECOND();
-                //String priorityColour = spinnerPriority.setOnItemSelectedListener(this);
+                String priority = Priority.getLOW();
 
-                Task subTask = createSubtaskDialogListener.saveSubtask(name, completed, levelFontsize, priorityColour);
+                if (spinnerPriority.getSelectedItemPosition() > 0) {
+                    priority = spinnerPriority.getSelectedItem().toString();
+                }
+
+                Task subTask = createSubtaskDialogListener.saveSubtask(name, completed, levelFontsize, priority);
                 parentTask.addSubtask(subTask);
                 Intent intent = new Intent(getActivity(), TaskActivity.class);
                 intent.putExtra("list", parentList);
                 intent.putExtra("task", parentTask);
+                Toast.makeText(getContext(), "Unteraufgabe wurde gespeichert", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });
+
         imageButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), StartActivity.class);
+                Toast.makeText(getContext(), "Unteraufgabe wurde gelöscht", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });
 
         return builder.create();
     }
-/*
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-*/
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -130,6 +182,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
     }
 
     public interface CreateSubtaskDialogListener {
-        Task saveSubtask(String name, boolean completed, int levelFontsize, String priorityColour);
+        Task saveSubtask(String name, boolean completed, int levelFontsize, String priority);
     }
 }
