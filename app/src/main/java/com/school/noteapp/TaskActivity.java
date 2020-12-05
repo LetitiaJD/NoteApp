@@ -1,10 +1,13 @@
 package com.school.noteapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -22,18 +25,20 @@ import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
-public class TaskActivity extends AppCompatActivity implements CreateSubtaskDialog.CreateSubtaskDialogListener/*, AdapterView.OnItemSelectedListener*/ {
+public class TaskActivity extends AppCompatActivity implements CreateSubtaskDialog.CreateSubtaskDialogListener {
 
     ImageButton imageButtonSave;
     ImageButton imageButtonDelete;
     FloatingActionButton floatingActionButtonAddSubtask;
     CheckBox checkBoxCompleted;
-    Spinner spinnerPriority;
     EditText editTextTaskTitle;
     EditText editTextDeadline;
     TextView textViewSubtasks;
+    Spinner spinnerPriority;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dataRefList;
@@ -62,23 +67,64 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         floatingActionButtonAddSubtask = findViewById(R.id.floatingActionButtonAddSubtask);
         imageButtonSave = findViewById(R.id.imageButtonSave);
         imageButtonDelete = findViewById(R.id.imageButtonDelete);
+        spinnerPriority = findViewById(R.id.spinnerPriority);
 
-        /*
-        spinnerPriority = (Spinner) findViewById(R.id.spinnerPriority);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.priorityArray, android.R.layout.simple_spinner_item
-        );
-        // Specify the layout to use when the list of choices appears
+        String[] priorities = new String[]{
+                "Priorität wählen",
+                Priority.getLOW(),
+                Priority.getMEDIUM(),
+                Priority.getHIGH()
+        };
+
+        final ArrayList<String> priorityList = new ArrayList<>(Arrays.asList(priorities));
+
+        // Initialising the ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_priority, priorityList) {
+            @Override
+            public boolean isEnabled(int position) {
+                // Disable first item in the spinner, as it's only a hint
+                return position != 0;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+
+                if (position == 0) {
+                    textView.setTextColor(Color.parseColor("#999999"));
+                } else {
+                    textView.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item_priority);
+        spinnerPriority.setAdapter(spinnerArrayAdapter);
+        spinnerArrayAdapter.notifyDataSetChanged();
+
+        spinnerPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if (position > 0) {
+                    Toast.makeText(getApplicationContext(), "Selected: " + selectedItemText, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+/*        // Create array adapter, which fills the spinner with the array of items
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.priorityArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinnerPriority.setAdapter(adapter);
-
-        spinnerPriority.setOnItemSelectedListener(this);
-
-*/
-
+        spinnerPriority.setOnItemSelectedListener(this);*/
 
         // Implement buttons
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
@@ -153,12 +199,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     startActivity(intent);
                 }
             });
-
-
-
         }
-
-
 
         floatingActionButtonAddSubtask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,16 +213,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
             }
         });
     }
-
-    /*@Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        parent.getItemAtPosition(position);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        //
-    }*/
 
     // deletes selected task
     public void deleteSelectedTask(List list, Task task) {
@@ -208,4 +239,15 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
         return subtask;
     }
+
+/*    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }*/
 }

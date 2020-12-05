@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public abstract class Priority implements Serializable {
 
-    private static String LOW = "green";
-    private static String MEDIUM = "orange";
-    private static String HIGH = "red";
+    private static String LOW = "unwichtig";
+    private static String MEDIUM = "wichtig";
+    private static String HIGH = "dringend";
 
     public static String getLOW() {
         return LOW;
