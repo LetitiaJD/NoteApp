@@ -38,11 +38,13 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
 
     List parentList;
     Task parentTask;
+    Task selectedSubtask;
     String mode;
 
-    public CreateSubtaskDialog(List parentList, Task parentTask, String mode) {
+    public CreateSubtaskDialog(List parentList, Task parentTask, Task selectedSubtask, String mode) {
         this.parentList = parentList;
         this.parentTask = parentTask;
+        this.selectedSubtask = selectedSubtask;
         this.mode = mode;
     }
 
@@ -130,7 +132,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
                     priority = spinnerPriority.getSelectedItem().toString();
                 }
 
-                Task subtask = createSubtaskDialogListener.saveSubtaskInDatabase(name, completed, levelFontsize, priority);
+                Task subtask = createSubtaskDialogListener.saveSubtaskInDatabase(selectedSubtask, name, completed, levelFontsize, priority);
                 //parentTask.addSubtask(subTask);
                 Intent intent = new Intent(getActivity(), TaskActivity.class);
                 intent.putExtra("list", parentList);
@@ -181,6 +183,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
     }
 
     public interface CreateSubtaskDialogListener {
-        Task saveSubtaskInDatabase(String name, boolean completed, int levelFontsize, String priority);
+        Task saveSubtaskInDatabase(Task subtaskBefore, String name, boolean completed, int levelFontsize, String priority);
     }
 }

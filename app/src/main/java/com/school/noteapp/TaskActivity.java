@@ -1,6 +1,7 @@
 package com.school.noteapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -220,7 +224,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                 if (selectedTask == null) {
                     Toast.makeText(TaskActivity.this, "Du musst die Aufgabe zuerst speichern, bevor du Unteraufgaben speichern kannst!", Toast.LENGTH_LONG).show();
                 } else {
-                    CreateSubtaskDialog dialog = new CreateSubtaskDialog(list, task, "new");
+                    CreateSubtaskDialog dialog = new CreateSubtaskDialog(list, task, selectedSubtask,"new");
                     dialog.show(getSupportFragmentManager(), "createSubTask");
                 }
             }
@@ -234,18 +238,53 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                 list.getTaskList().remove(t);
                 // update list in firebase
                 dataRefList.child(list.getId()).setValue(list);
+                dataRefList.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        List list = snapshot.getValue(List.class);
+                        app.getLists().remove(list);
+                        app.getLists().add(list);
+                        taskAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        List list = snapshot.getValue(List.class);
+                        app.getLists().remove(list);
+                        app.getLists().add(list);
+                        taskAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 break;
             }
         }
     }
 
     @Override
-    public Task saveSubtaskInDatabase(String name, boolean completed, int levelFontsize, String priority) {
+    public Task saveSubtaskInDatabase(Task subtaskOld, String name, boolean completed, int levelFontsize, String priority) {
         Task subtask = new Task(name, completed, priority, levelFontsize);
 
         selectedList.deleteTask(selectedTask);
 
+        selectedTask.deleteSubtask(subtaskOld);
         selectedTask.addSubtask(subtask);
+
         selectedList.addTask(selectedTask);
 
         dataRefList.child(selectedList.getId()).setValue(selectedList);
@@ -260,8 +299,15 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         Bundle args = new Bundle();
         args.putSerializable("subtask", subtask);
 
-        CreateSubtaskDialog subtaskDialog = new CreateSubtaskDialog(selectedList, selectedTask, "edit");
+        CreateSubtaskDialog subtaskDialog = new CreateSubtaskDialog(selectedList, selectedTask, selectedSubtask, "edit");
         subtaskDialog.setArguments(args);
         subtaskDialog.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(TaskActivity.this, ListActivity.class);
+        intent.putExtra("list", selectedList);
+        startActivity(intent);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class List implements Serializable, Cloneable {
@@ -92,5 +93,17 @@ public class List implements Serializable, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this.getClass().equals(o.getClass())) {
+            List list = (List) o;
+            if (this.getId().equals(list.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 }
