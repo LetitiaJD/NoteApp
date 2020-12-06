@@ -1,6 +1,7 @@
 package com.school.noteapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -56,9 +60,44 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         });
 
         // Initialize view for lists
-        ListAdapter listAdapter = new ListAdapter(app.getLists(), this);
+        final ListAdapter listAdapter = new ListAdapter(app.getLists(), this);
         // add adapter to recyclerview
         recyclerViewStartLists.setAdapter(listAdapter);
+
+        // load lists into App
+        DatabaseReference dataRefList = database.getReference("list");
+        dataRefList.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                List list = snapshot.getValue(List.class);
+                if (!app.getLists().contains(list)) {
+                    app.getLists().add(list);
+                    listAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                List list = snapshot.getValue(List.class);
+                app.getLists().remove(list);
+                listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         // Set layout manager to position the items
         recyclerViewStartLists.setLayoutManager(new LinearLayoutManager(this));
 		
@@ -110,6 +149,36 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         String id = dataRefList.push().getKey();
         List list = new List(id, name, description, colour);
         dataRefList.child(id).setValue(list);
+
+        dataRefList.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                List list = snapshot.getValue(List.class);
+                app.getLists().add(list);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                List list = snapshot.getValue(List.class);
+                app.getLists().remove(list);
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         return list;
     }
