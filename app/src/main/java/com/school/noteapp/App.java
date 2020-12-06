@@ -68,6 +68,13 @@ public class App {
         return list.getTaskList();
     }
 
+    public ArrayList<Task> getSubtasks(Task task) {
+        if (task == null ) {
+            return null;
+        }
+        return task.getSubtaskList();
+    }
+
     public void setLists(ArrayList<List> lists) {
         this.lists = lists;
     }
