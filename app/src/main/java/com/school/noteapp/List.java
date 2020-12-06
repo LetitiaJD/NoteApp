@@ -59,12 +59,20 @@ public class List implements Serializable, Cloneable {
     }
 
     public boolean addTask(Task task) {
+        if (this.taskList == null) {
+    this.taskList = new ArrayList<>();
+        }
         this.taskList.add(task);
         return true;
     }
 
     public boolean deleteTask(Task task) {
-        this.taskList.remove(task);
+        for (Task t : this.taskList) {
+            if (t.equals(task)) {
+                this.taskList.remove(t);
+                break;
+            }
+        }
         return true;
     }
 

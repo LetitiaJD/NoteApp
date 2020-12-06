@@ -24,10 +24,11 @@ public class App {
 
     public static synchronized App getInstance () {
         if (App.instance == null) {
-            App.instance = new App ();
+            App.instance = new App();
+            lists = new ArrayList<>();
+
             // load lists into App
             DatabaseReference dataRefList = database.getReference("list");
-            lists = new ArrayList<>();
             dataRefList.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -54,8 +55,7 @@ public class App {
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            });
-        }
+            });}
         return App.instance;
     }
 

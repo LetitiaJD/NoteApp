@@ -18,11 +18,9 @@ import java.util.ArrayList;
 public class ListAdapter extends
             RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    java.util.List<List> lists = new ArrayList<>();
+    java.util.List<List> lists;
 
     OnNoteListener onNoteListener;
-
-    RecyclerView recyclerViewStartLists;
 
 
     public ListAdapter(java.util.List<List> lists, OnNoteListener onNoteListener) {
@@ -82,7 +80,7 @@ public class ListAdapter extends
 
         @Override
         public void onClick(View v) {
-onNoteListener.onNoteClick(getAdapterPosition());
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
 
