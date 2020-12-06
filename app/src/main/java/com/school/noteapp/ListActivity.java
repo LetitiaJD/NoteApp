@@ -73,4 +73,10 @@ public class ListActivity extends AppCompatActivity implements TaskAdapter.ItemC
         intent.putExtra("task", task);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ListActivity.this, StartActivity.class);
+        startActivity(intent);
+    }
 }
