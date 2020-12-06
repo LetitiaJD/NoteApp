@@ -1,6 +1,5 @@
 package com.school.noteapp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
@@ -108,7 +105,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
                 String selectedItemText = (String) parent.getItemAtPosition(position);
 
                 if (position > 0) {
-                    Toast.makeText(getContext(), "Selected: " + selectedItemText, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Selected: " + selectedItemText, Toast.LENGTH_SHORT);
                 }
             }
 
@@ -124,7 +121,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
             @Override
             public void onClick(View v) {
                 // TODO differentiate between new and edited subtask
-
                 String name = editTextSubtaskName.getText().toString().trim();
                 boolean completed = checkBoxCompleted.isChecked();
                 int levelFontsize = Level.getSECOND();
@@ -134,8 +130,8 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
                     priority = spinnerPriority.getSelectedItem().toString();
                 }
 
-                Task subTask = createSubtaskDialogListener.saveSubtask(name, completed, levelFontsize, priority);
-                parentTask.addSubtask(subTask);
+                Task subtask = createSubtaskDialogListener.saveSubtaskInDatabase(name, completed, levelFontsize, priority);
+                //parentTask.addSubtask(subTask);
                 Intent intent = new Intent(getActivity(), TaskActivity.class);
                 intent.putExtra("list", parentList);
                 intent.putExtra("task", parentTask);
@@ -168,7 +164,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
             }
             spinnerPriority.setSelection(index);
             checkBoxCompleted.setChecked(subtask.isCompleted());
-            Toast.makeText(getContext(), subtask.toString(), Toast.LENGTH_LONG).show();
         }
 
         return builder.create();
@@ -186,6 +181,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
     }
 
     public interface CreateSubtaskDialogListener {
-        Task saveSubtask(String name, boolean completed, int levelFontsize, String priority);
+        Task saveSubtaskInDatabase(String name, boolean completed, int levelFontsize, String priority);
     }
 }

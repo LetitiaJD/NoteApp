@@ -49,6 +49,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
     List selectedList;
     Task selectedTask;
+    Task selectedSubtask;
 
     App app = App.getInstance();
 
@@ -109,11 +110,11 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
         final ArrayList<String> priorityList = new ArrayList<>(Arrays.asList(priorities));
 
-        // Initialising the ArrayAdapter
+        // initialising the ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_priority, priorityList) {
             @Override
             public boolean isEnabled(int position) {
-                // Disable first item in the spinner, as it's only a hint
+                // disable first item in the spinner, as it's only a hint
                 return position != 0;
             }
 
@@ -151,13 +152,13 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
             }
         });
 
-        // Implement RecyclerView for Subtasks
+        // implement RecyclerView for Subtasks
         recyclerViewSubtasks.setLayoutManager(new LinearLayoutManager(this));
         taskAdapter = new TaskAdapter(this, list, app.getSubtasks(task));
         taskAdapter.setItemClickListener(this);
         recyclerViewSubtasks.setAdapter(taskAdapter);
 
-        // save  Task
+        // save Task
             imageButtonSave.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -192,6 +193,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     Intent intent = new Intent(TaskActivity.this, TaskActivity.class);
                     intent.putExtra("list", list);
                     intent.putExtra("task", task);
+                    Toast.makeText(getApplicationContext(), "Aufgabe wurde gespeichert", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }
             });
@@ -204,9 +206,10 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     if (selectedTask != null) {
                         deleteSelectedTask(list, task);
                     }
-                    // go back to listactivity
+                    // go back to ListActivity
                     Intent intent = new Intent(TaskActivity.this, ListActivity.class);
                     intent.putExtra("list", list);
+                    Toast.makeText(getApplicationContext(), "Aufgabe wurde gelöscht", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }
             });
@@ -237,7 +240,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
     }
 
     @Override
-    public Task saveSubtask(String name, boolean completed, int levelFontsize, String priority) {
+    public Task saveSubtaskInDatabase(String name, boolean completed, int levelFontsize, String priority) {
         Task subtask = new Task(name, completed, priority, levelFontsize);
 
         selectedList.deleteTask(selectedTask);
@@ -253,13 +256,12 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
     @Override
     public void onItemClick(View view, List list, int position) {
         Task subtask = taskAdapter.getItem(position);
+        selectedSubtask = subtask;
         Bundle args = new Bundle();
-        //args.putSerializable("list", list);
         args.putSerializable("subtask", subtask);
 
         CreateSubtaskDialog subtaskDialog = new CreateSubtaskDialog(selectedList, selectedTask, "edit");
         subtaskDialog.setArguments(args);
         subtaskDialog.show(getSupportFragmentManager(), "dialog");
-
     }
 }
