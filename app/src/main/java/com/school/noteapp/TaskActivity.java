@@ -76,6 +76,30 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         spinnerPriority = findViewById(R.id.spinnerPriority);
         recyclerViewSubtasks = findViewById(R.id.recyclerViewSubtasks);
 
+        // fill fields if an existing task is selected
+        if (selectedTask != null) {
+            editTextTaskTitle.setText(selectedTask.getName());
+
+            if (selectedTask.getDeadline() != null) {
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                editTextDeadline.setText(format.format(selectedTask.getDeadline()));
+            }
+
+            int priority = 0;
+            if (selectedTask.getPriorityColour().equals(Priority.getLOW())) {
+                priority = 1;
+            } else if (selectedTask.getPriorityColour().equals(Priority.getMEDIUM())) {
+                priority = 2;
+            } else if (selectedTask.getPriorityColour().equals(Priority.getHIGH())) {
+                priority = 3;
+            }
+            spinnerPriority.setSelection(priority);
+
+            if (selectedTask.isCompleted()) {
+                checkBoxCompleted.setChecked(true);
+            }
+        }
+
         final String[] priorities = new String[]{
                 "Priorität wählen",
                 Priority.getLOW(),
@@ -129,22 +153,11 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
         // Implement RecyclerView for Subtasks
         recyclerViewSubtasks.setLayoutManager(new LinearLayoutManager(this));
-        taskAdapter = new TaskAdapter(this, app.getSubtasks(task));
+        taskAdapter = new TaskAdapter(this, list, app.getSubtasks(task));
         taskAdapter.setItemClickListener(this);
         recyclerViewSubtasks.setAdapter(taskAdapter);
 
-        // Implement buttons
-        imageButtonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(TaskActivity.this, "NOT NULL Task has been saved", Toast.LENGTH_LONG).show();
-                Toast.makeText(TaskActivity.this, editTextTaskTitle.getText().toString(), Toast.LENGTH_SHORT).show();
-                task.setName(editTextTaskTitle.getText().toString());
-            }
-        });
-
-        // save new Task
-        if (selectedTask == null) {
+        // save  Task
             imageButtonSave.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -170,6 +183,9 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     }
 
                     Task task = new Task(name, completed, deadline, priorityColour, Level.getFIRST());
+                    if (selectedTask != null) {
+                        list.deleteTask(selectedTask);
+                    }
                     list.addTask(task);
                     dataRefList.child(list.getId()).setValue(list);
 
@@ -179,37 +195,21 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     startActivity(intent);
                 }
             });
-            // Stop creating a new task
+
+
             imageButtonDelete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(TaskActivity.this, ListActivity.class);
-                    intent.putExtra("list", list);
-                    startActivity(intent);
-                }
-            });
-            Toast.makeText(TaskActivity.this, "NULL Task has been saved", Toast.LENGTH_LONG).show();
-        } else {
-
-            editTextTaskTitle.setText(task.getName());
-
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-            editTextDeadline.setText(format.format(task.getDeadline()));
-
-            // task already exists and can be deleted
-            imageButtonDelete.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    deleteSelectedTask(list, task);
+                    if (selectedTask != null) {
+                        deleteSelectedTask(list, task);
+                    }
                     // go back to listactivity
                     Intent intent = new Intent(TaskActivity.this, ListActivity.class);
                     intent.putExtra("list", list);
                     startActivity(intent);
                 }
             });
-        }
 
         floatingActionButtonAddSubtask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,13 +251,15 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClick(View view, List list, int position) {
         Task subtask = taskAdapter.getItem(position);
         Bundle args = new Bundle();
+        //args.putSerializable("list", list);
         args.putSerializable("subtask", subtask);
 
         CreateSubtaskDialog subtaskDialog = new CreateSubtaskDialog(selectedList, selectedTask, "edit");
         subtaskDialog.setArguments(args);
         subtaskDialog.show(getSupportFragmentManager(), "dialog");
+
     }
 }

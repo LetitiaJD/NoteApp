@@ -52,13 +52,13 @@ public class ListActivity extends AppCompatActivity implements TaskAdapter.ItemC
         });
 
         recyclerViewTasks.setLayoutManager(new LinearLayoutManager(this));
-        taskAdapter = new TaskAdapter(this, app.getTasks(list));
+        taskAdapter = new TaskAdapter(this, list, app.getTasks(list));
         taskAdapter.setItemClickListener(this);
         recyclerViewTasks.setAdapter(taskAdapter);
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClick(View view, List list, int position) {
         /*Task task = app.getTasks().get(position);
         Intent intent = new Intent(this, TaskActivity.class);
         intent.putExtra("task", task);
@@ -69,6 +69,7 @@ public class ListActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
         Task task = taskAdapter.getItem(position);
         Intent intent = new Intent(this, TaskActivity.class);
+        intent.putExtra("list", list);
         intent.putExtra("task", task);
         startActivity(intent);
     }

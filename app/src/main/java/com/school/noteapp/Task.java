@@ -1,6 +1,7 @@
 package com.school.noteapp;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,6 +85,9 @@ public class Task implements Serializable {
     }
 
     public boolean addSubtask(Task subtask) {
+        if (this.subtaskList == null) {
+            this.subtaskList = new ArrayList<>();
+        }
         this.subtaskList.add(subtask);
         return true;
     }
@@ -96,6 +100,30 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this.getClass().equals(o.getClass())) {
+            Task task = (Task) o;
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            String deadlineT = "";
+            if (this.getDeadline() != null) {
+                deadlineT = format.format(this.getDeadline());
+            }
+            String deadlineO = "";
+            if (task.getDeadline() != null) {
+                deadlineO = format.format(task.getDeadline());
+            }
+            if (this.getName().equals(((Task) o).getName())
+                    && this.getPriorityColour().equals(task.getPriorityColour())
+                    && this.getLevelFontsize() == task.getLevelFontsize()
+                    && (this.getSubtaskList() != null && task.getSubtaskList() != null && this.getSubtaskList().equals(task.getSubtaskList()) || this.getSubtaskList() == null && task.getSubtaskList() == null)
+                    && deadlineT.equals(deadlineO)){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

@@ -80,7 +80,7 @@ public class ListAdapter extends
 
         @Override
         public void onClick(View v) {
-onNoteListener.onNoteClick(getAdapterPosition());
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
 

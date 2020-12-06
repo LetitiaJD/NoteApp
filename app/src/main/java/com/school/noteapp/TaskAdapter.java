@@ -13,12 +13,14 @@ import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    ArrayList<Task> tasks = new ArrayList<>();
+    List list;
+    ArrayList<Task> tasks;
     ItemClickListener itemClickListener;
     LayoutInflater inflater;
 
-    public TaskAdapter(Context context, ArrayList<Task> tasks) {
+    public TaskAdapter(Context context, List list, ArrayList<Task> tasks) {
         this.inflater = LayoutInflater.from(context);
+        this.list = list;
         this.tasks = tasks;
     }
 
@@ -72,7 +74,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             //onClickListener.onItemClick(getAdapterPosition());
 
             if (onClickListener != null) {
-                onClickListener.onItemClick(view, getAdapterPosition());
+                onClickListener.onItemClick(view, list, getAdapterPosition());
             }
         }
     }
@@ -89,6 +91,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     // Parent activity will implement this method to respond to click events
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, List list, int position);
     }
 }
