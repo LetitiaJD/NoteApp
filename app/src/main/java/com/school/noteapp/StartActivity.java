@@ -45,9 +45,6 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         // database
         dataRefList = database.getReference("list");
 
-        // add testdata to db
-        addTestdata();
-
         // implement button for adding list
         floatingActionButtonCreateNewList.setOnClickListener(new View.OnClickListener() {
             @Override
