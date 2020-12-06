@@ -2,6 +2,8 @@ package com.school.noteapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-public class TaskActivity extends AppCompatActivity implements CreateSubtaskDialog.CreateSubtaskDialogListener {
+public class TaskActivity extends AppCompatActivity implements CreateSubtaskDialog.CreateSubtaskDialogListener, TaskAdapter.ItemClickListener {
 
     ImageButton imageButtonSave;
     ImageButton imageButtonDelete;
@@ -39,12 +41,16 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
     EditText editTextDeadline;
     TextView textViewSubtasks;
     Spinner spinnerPriority;
+    RecyclerView recyclerViewSubtasks;
+    TaskAdapter taskAdapter;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dataRefList;
 
     List selectedList;
     Task selectedTask;
+
+    App app = App.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         selectedList = list;
         selectedTask = task;
 
-        // initialize UI
+        // Initialize UI
         editTextTaskTitle = findViewById(R.id.editTextTaskTitle);
         editTextDeadline = findViewById(R.id.editTextDeadline);
         textViewSubtasks = findViewById(R.id.textViewSubtasks);
@@ -68,8 +74,9 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         imageButtonSave = findViewById(R.id.imageButtonSave);
         imageButtonDelete = findViewById(R.id.imageButtonDelete);
         spinnerPriority = findViewById(R.id.spinnerPriority);
+        recyclerViewSubtasks = findViewById(R.id.recyclerViewSubtasks);
 
-        String[] priorities = new String[]{
+        final String[] priorities = new String[]{
                 "Priorität wählen",
                 Priority.getLOW(),
                 Priority.getMEDIUM(),
@@ -120,6 +127,12 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
             }
         });
 
+        // Implement RecyclerView for Subtasks
+        recyclerViewSubtasks.setLayoutManager(new LinearLayoutManager(this));
+        taskAdapter = new TaskAdapter(this, app.getSubtasks(task));
+        taskAdapter.setItemClickListener(this);
+        recyclerViewSubtasks.setAdapter(taskAdapter);
+
         // Implement buttons
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,8 +152,13 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     String name = editTextTaskTitle.getText().toString().trim();
                     boolean completed = checkBoxCompleted.isChecked();
 
-                    // need to implement spinner first
+                    // Low is default, if user does not select a priority
                     String priorityColour = Priority.getLOW();
+                    //String priorityColour = spinnerPriority.getSelectedItem().toString();
+                    if (spinnerPriority.getSelectedItemPosition() > 0) {
+                        priorityColour = spinnerPriority.getSelectedItem().toString();
+                    }
+
                     SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
                     Date deadline;
                     try {
@@ -151,7 +169,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                         deadline = null;
                     }
 
-                    //Task task = CreateSubtaskDialog.CreateSubtaskDialogListener.saveSubtask(name, completed, priorityColour);
                     Task task = new Task(name, completed, deadline, priorityColour, Level.getFIRST());
                     list.addTask(task);
                     dataRefList.child(list.getId()).setValue(list);
@@ -162,7 +179,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     startActivity(intent);
                 }
             });
-            // stop creating a new task
+            // Stop creating a new task
             imageButtonDelete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -200,7 +217,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                 if (selectedTask == null) {
                     Toast.makeText(TaskActivity.this, "Du musst die Aufgabe zuerst speichern, bevor du Unteraufgaben speichern kannst!", Toast.LENGTH_LONG).show();
                 } else {
-                    CreateSubtaskDialog dialog = new CreateSubtaskDialog(list, task);
+                    CreateSubtaskDialog dialog = new CreateSubtaskDialog(list, task, "new");
                     dialog.show(getSupportFragmentManager(), "createSubTask");
                 }
             }
@@ -231,5 +248,16 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         dataRefList.child(selectedList.getId()).setValue(selectedList);
 
         return subtask;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Task subtask = taskAdapter.getItem(position);
+        Bundle args = new Bundle();
+        args.putSerializable("subtask", subtask);
+
+        CreateSubtaskDialog subtaskDialog = new CreateSubtaskDialog(selectedList, selectedTask, "edit");
+        subtaskDialog.setArguments(args);
+        subtaskDialog.show(getSupportFragmentManager(), "dialog");
     }
 }

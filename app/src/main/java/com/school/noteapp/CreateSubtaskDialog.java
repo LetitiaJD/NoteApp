@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
@@ -40,10 +41,12 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
 
     List parentList;
     Task parentTask;
+    String mode;
 
-    public CreateSubtaskDialog(List parentList, Task parentTask) {
+    public CreateSubtaskDialog(List parentList, Task parentTask, String mode) {
         this.parentList = parentList;
         this.parentTask = parentTask;
+        this.mode = mode;
     }
 
     @NonNull
@@ -62,25 +65,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
         imageButtonDelete = view.findViewById(R.id.imageButtonDelete);
         editTextSubtaskName = view.findViewById(R.id.editTextSubtaskName);
         checkBoxCompleted = (CheckBox)view.findViewById(R.id.checkBoxCompleted);
-
-        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.priorityArray, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerPriority.setAdapter(adapter);
-
-        spinnerPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                // An item was selected. You can retrieve the selected item using
-                parent.getItemAtPosition(pos);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //
-            }
-        });*/
-
         spinnerPriority = (Spinner) view.findViewById(R.id.spinnerPriority);
 
         String[] priorities = new String[]{
@@ -139,6 +123,8 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
 
             @Override
             public void onClick(View v) {
+                // TODO differentiate between new and edited subtask
+
                 String name = editTextSubtaskName.getText().toString().trim();
                 boolean completed = checkBoxCompleted.isChecked();
                 int levelFontsize = Level.getSECOND();
@@ -166,6 +152,24 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
                 startActivity(intent);
             }
         });
+
+        if (mode.equals("edit")) {
+            Bundle args = getArguments();
+            Task subtask = (Task) args.getSerializable("subtask");
+
+            // load content into UI
+            editTextSubtaskName.setText(subtask.getName());
+
+            int index = 1;
+            for (; index < priorities.length; index++) {
+                if (priorities[index].equals(subtask.getPriorityColour())) {
+                    break;
+                }
+            }
+            spinnerPriority.setSelection(index);
+            checkBoxCompleted.setChecked(subtask.isCompleted());
+            Toast.makeText(getContext(), subtask.toString(), Toast.LENGTH_LONG).show();
+        }
 
         return builder.create();
     }

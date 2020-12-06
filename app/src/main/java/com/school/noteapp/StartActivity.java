@@ -98,8 +98,10 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
         // second list for test
         id = dataRefList.push().getKey();
         Task task = new Task("Task 1", false, new Date(), Priority.getHIGH(), Level.getFIRST());
-        Task subTask = new Task( "Subtask 1", false, null, Priority.getMEDIUM(), Level.getSECOND());
-        task.getSubtaskList().add(subTask);
+        Task subTask1 = new Task( "Subtask 1", true, null, Priority.getMEDIUM(), Level.getSECOND());
+        Task subTask2 = new Task( "Subtask 2", false, null, Priority.getHIGH(), Level.getSECOND());
+        task.getSubtaskList().add(subTask1);
+        task.getSubtaskList().add(subTask2);
         list = new List(id, "List 2", "Test for list", "blue");
         list.addTask(task);
         dataRefList.child(id).setValue(list);
