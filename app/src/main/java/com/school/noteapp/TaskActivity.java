@@ -193,6 +193,41 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                     }
                     list.addTask(task);
                     dataRefList.child(list.getId()).setValue(list);
+                    dataRefList.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            List list = snapshot.getValue(List.class);
+                            app.getLists().remove(list);
+                            app.getLists().add(list);
+                            taskAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            List list = snapshot.getValue(List.class);
+                            app.getLists().remove(list);
+                            app.getLists().add(list);
+                            taskAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                            List list = snapshot.getValue(List.class);
+                            app.getLists().remove(list);
+                            taskAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                     Intent intent = new Intent(TaskActivity.this, TaskActivity.class);
                     intent.putExtra("list", list);
@@ -238,39 +273,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                 list.getTaskList().remove(t);
                 // update list in firebase
                 dataRefList.child(list.getId()).setValue(list);
-                dataRefList.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        List list = snapshot.getValue(List.class);
-                        app.getLists().remove(list);
-                        app.getLists().add(list);
-                        taskAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        List list = snapshot.getValue(List.class);
-                        app.getLists().remove(list);
-                        app.getLists().add(list);
-                        taskAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
                 break;
             }
         }
@@ -288,6 +290,36 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         selectedList.addTask(selectedTask);
 
         dataRefList.child(selectedList.getId()).setValue(selectedList);
+
+        dataRefList.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                List list = snapshot.getValue(List.class);
+                selectedList = list;
+                    taskAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                List list = snapshot.getValue(List.class);
+                selectedList = list;
+                taskAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         return subtask;
     }

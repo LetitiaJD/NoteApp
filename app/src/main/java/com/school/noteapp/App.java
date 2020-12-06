@@ -72,25 +72,26 @@ public class App {
             listWithTodaysTasks.setDescription(list.getDescription());
             listWithTodaysTasks.setColour(list.getColour());*/
 			ArrayList<Task> tasksForToday = new ArrayList<>();
-			for (Task task : list.getTaskList()) {
-			    if (task.getDeadline() != null) {
-                String deadline = format.format(task.getDeadline());
-				if (today.equals(deadline)) {
-					tasksForToday.add(task);
-					// whats about the subtasks? Do they have the same deadline like the parent task? Maybe the parent task can have 
-					// automatically the lowest deadline of the subtasks and then we check which subtasks have this deadline and 
-					// add them to subtasks
-					
-					
-					
-				}
-			}
-			}
-			if (tasksForToday.size() > 0) {
-                // add tasks that are for today to list
-                listWithTodaysTasks.setTaskList(tasksForToday);
-                // add list with tasks for today to listsWithTodaysTasks
-                listsWithTodaysTasks.add(listWithTodaysTasks);
+			if (list.getTaskList() != null) {
+                for (Task task : list.getTaskList()) {
+                    if (task.getDeadline() != null) {
+                        String deadline = format.format(task.getDeadline());
+                        if (today.equals(deadline)) {
+                            tasksForToday.add(task);
+                            // whats about the subtasks? Do they have the same deadline like the parent task? Maybe the parent task can have
+                            // automatically the lowest deadline of the subtasks and then we check which subtasks have this deadline and
+                            // add them to subtasks
+
+
+                        }
+                    }
+                }
+                if (tasksForToday.size() > 0) {
+                    // add tasks that are for today to list
+                    listWithTodaysTasks.setTaskList(tasksForToday);
+                    // add list with tasks for today to listsWithTodaysTasks
+                    listsWithTodaysTasks.add(listWithTodaysTasks);
+                }
             }
 		}
 		return listsWithTodaysTasks;

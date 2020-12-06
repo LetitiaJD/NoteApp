@@ -154,12 +154,16 @@ public class StartActivity extends AppCompatActivity implements CreateListDialog
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 List list = snapshot.getValue(List.class);
-                app.getLists().add(list);
+                if (!app.getLists().contains(list)) {
+                    app.getLists().add(list);
+                }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                List list = snapshot.getValue(List.class);
+                app.getLists().remove(list);
+                app.getLists().add(list);
             }
 
             @Override
