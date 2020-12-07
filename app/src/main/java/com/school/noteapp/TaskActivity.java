@@ -189,6 +189,7 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
 
                     Task task = new Task(name, completed, deadline, priorityColour, Level.getFIRST());
                     if (selectedTask != null) {
+                        task.setSubtaskList(selectedTask.getSubtaskList());
                         list.deleteTask(selectedTask);
                     }
                     list.addTask(task);
