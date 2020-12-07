@@ -90,16 +90,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
                 editTextDeadline.setText(format.format(selectedTask.getDeadline()));
             }
 
-            int priority = 0;
-            if (selectedTask.getPriorityColour().equals(Priority.getLOW())) {
-                priority = 1;
-            } else if (selectedTask.getPriorityColour().equals(Priority.getMEDIUM())) {
-                priority = 2;
-            } else if (selectedTask.getPriorityColour().equals(Priority.getHIGH())) {
-                priority = 3;
-            }
-            spinnerPriority.setSelection(priority);
-
             if (selectedTask.isCompleted()) {
                 checkBoxCompleted.setChecked(true);
             }
@@ -140,13 +130,25 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         spinnerPriority.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
+        int priority = 0;
+        if (selectedTask.getPriorityColour().equals(Priority.getLOW())) {
+            priority = 1;
+        } else if (selectedTask.getPriorityColour().equals(Priority.getMEDIUM())) {
+            priority = 2;
+        } else if (selectedTask.getPriorityColour().equals(Priority.getHIGH())) {
+            priority = 3;
+        }
+        spinnerPriority.setSelection(priority);
+        spinnerArrayAdapter.notifyDataSetChanged();
+
+
         spinnerPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
 
                 if (position > 0) {
-                    Toast.makeText(getApplicationContext(), "Selected: " + selectedItemText, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Selected: " + selectedItemText, Toast.LENGTH_SHORT).show();
                 }
             }
 
