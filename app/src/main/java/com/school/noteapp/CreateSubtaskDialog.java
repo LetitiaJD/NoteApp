@@ -145,8 +145,14 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
         imageButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), StartActivity.class);
+                if (selectedSubtask != null) {
+                    createSubtaskDialogListener.deleteSubtaskInDatabase(selectedSubtask);
+                }
+                Intent intent = new Intent(getActivity(), TaskActivity.class);
+                intent.putExtra("list", parentList);
+                intent.putExtra("task", parentTask);
                 Toast.makeText(getContext(), "Unteraufgabe wurde gelöscht", Toast.LENGTH_LONG).show();
+
                 startActivity(intent);
             }
         });
@@ -184,5 +190,6 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment /*implements Ad
 
     public interface CreateSubtaskDialogListener {
         Task saveSubtaskInDatabase(Task subtaskBefore, String name, boolean completed, int levelFontsize, String priority);
+        void deleteSubtaskInDatabase(Task subtask);
     }
 }

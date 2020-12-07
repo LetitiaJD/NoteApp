@@ -328,6 +328,47 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
     }
 
     @Override
+    public void deleteSubtaskInDatabase(Task subtask) {
+
+        selectedList.deleteTask(selectedTask);
+        selectedTask.deleteSubtask(subtask);
+        selectedList.addTask(selectedTask);
+
+        dataRefList.child(selectedList.getId()).setValue(selectedList);
+
+        dataRefList.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                List list = snapshot.getValue(List.class);
+                selectedList = list;
+                taskAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                List list = snapshot.getValue(List.class);
+                selectedList = list;
+                taskAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
     public void onItemClick(View view, List list, int position) {
         Task subtask = taskAdapter.getItem(position);
         selectedSubtask = subtask;
