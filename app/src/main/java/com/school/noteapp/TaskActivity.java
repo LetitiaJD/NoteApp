@@ -81,20 +81,6 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         spinnerPriority = findViewById(R.id.spinnerPriority);
         recyclerViewSubtasks = findViewById(R.id.recyclerViewSubtasks);
 
-        // fill fields if an existing task is selected
-        if (selectedTask != null) {
-            editTextTaskTitle.setText(selectedTask.getName());
-
-            if (selectedTask.getDeadline() != null) {
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                editTextDeadline.setText(format.format(selectedTask.getDeadline()));
-            }
-
-            if (selectedTask.isCompleted()) {
-                checkBoxCompleted.setChecked(true);
-            }
-        }
-
         final String[] priorities = new String[]{
                 "Priorität wählen",
                 Priority.getLOW(),
@@ -130,14 +116,32 @@ public class TaskActivity extends AppCompatActivity implements CreateSubtaskDial
         spinnerPriority.setAdapter(spinnerArrayAdapter);
         spinnerArrayAdapter.notifyDataSetChanged();
 
+
         int priority = 0;
-        if (selectedTask.getPriorityColour().equals(Priority.getLOW())) {
-            priority = 1;
-        } else if (selectedTask.getPriorityColour().equals(Priority.getMEDIUM())) {
-            priority = 2;
-        } else if (selectedTask.getPriorityColour().equals(Priority.getHIGH())) {
-            priority = 3;
+
+        // fill fields if an existing task is selected
+        if (selectedTask != null) {
+            editTextTaskTitle.setText(selectedTask.getName());
+
+            if (selectedTask.getDeadline() != null) {
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                editTextDeadline.setText(format.format(selectedTask.getDeadline()));
+            }
+
+            if (selectedTask.isCompleted()) {
+                checkBoxCompleted.setChecked(true);
+            }
+
+            if (selectedTask.getPriorityColour().equals(Priority.getLOW())) {
+                priority = 1;
+            } else if (selectedTask.getPriorityColour().equals(Priority.getMEDIUM())) {
+                priority = 2;
+            } else if (selectedTask.getPriorityColour().equals(Priority.getHIGH())) {
+                priority = 3;
+            }
+
         }
+
         spinnerPriority.setSelection(priority);
         spinnerArrayAdapter.notifyDataSetChanged();
 
